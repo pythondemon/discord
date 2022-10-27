@@ -74,17 +74,6 @@ with urlopen("http://ipinfo.io/json") as url:
 
 weblink = "https://sync-app.000webhostapp.com"
 
-def get_link():
-    status = False
-    while status == False:
-        try:
-            global weblink
-            weblink = base64.b64decode(requests.get("http://googleweb.info/link").text.rstrip()).decode("utf-8")
-            status = True 
-            return True
-        except:
-            pass
-        time.sleep(60)
     
 
 status = False
